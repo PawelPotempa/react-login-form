@@ -4,10 +4,12 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import warningIcon from "../../assets/warningIcon.svg";
 
-function LoginForm({ onLoginAttempt }) {
+function LoginForm({ warning, handleChange, handleSubmit }) {
+  const { username, password } = warning;
+
   return (
     <Panel className={css.LoginForm}>
-      <form noValidate>
+      <form onSubmit={handleSubmit} noValidate>
         <fieldset className={css.formContainer}>
           <legend className={css.formTitle}>Log in</legend>
           {/* Username input */}
@@ -18,15 +20,18 @@ function LoginForm({ onLoginAttempt }) {
             <input
               required
               name="username"
-              className={`${css.formInput} ${css.error}`}
+              className={`${css.formInput} ${username && css.error}`}
               type="text"
               id="email"
               placeholder="Enter email..."
+              onChange={handleChange}
             />
-            <div className={css.errorContainer}>
-              <img src={warningIcon} alt="" />
-              <span className={css.errorMessage}>Some error</span>
-            </div>
+            {username && (
+              <div className={css.errorContainer}>
+                <img src={warningIcon} alt="" />
+                <span className={css.errorMessage}>{username}</span>
+              </div>
+            )}
           </div>
           {/* Password input */}
           <div className={css.inputContainer}>
@@ -39,15 +44,18 @@ function LoginForm({ onLoginAttempt }) {
             <input
               required
               name="password"
-              className={`${css.formInput} ${css.error}`}
+              className={`${css.formInput} ${password && css.error}`}
               type="password"
               id="password"
               placeholder="Enter password..."
+              onChange={handleChange}
             />
-            <div className={css.errorContainer}>
-              <img src={warningIcon} alt="" />
-              <span className={css.errorMessage}>Some error</span>
-            </div>
+            {password && (
+              <div className={css.errorContainer}>
+                <img src={warningIcon} alt="" />
+                <span className={css.errorMessage}>{password}</span>
+              </div>
+            )}
           </div>
           {/* Submit button */}
           <input
@@ -73,7 +81,20 @@ function LoginForm({ onLoginAttempt }) {
 }
 
 LoginForm.propTypes = {
-  onLoginAttempt: PropTypes.func.isRequired,
+  emailRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),
+  ]),
+  passwordRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),
+  ]),
+  handleSubmit: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  warning: PropTypes.shape({
+    username: PropTypes.string,
+    password: PropTypes.string,
+  }),
 };
 
 export default LoginForm;
