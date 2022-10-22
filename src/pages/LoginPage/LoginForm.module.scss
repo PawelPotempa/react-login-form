@@ -1,7 +1,117 @@
-@use '../../variables' as var;
+@use "../../variables" as var;
 
+// COMPONENT WRAPPER
 .LoginForm {
-    padding: var.$contentMargin+px;
+  padding: 5rem 5rem 2.5rem 5rem;
+  margin-top: 4rem;
+  font-weight: 600;
 }
 
-// TODO: Your code
+// MAIN FORM CONTAINER
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.formTitle {
+  margin-bottom: 2.5rem;
+  font-size: 2rem;
+  color: var.$colorDarkGrey;
+  line-height: 120%;
+}
+
+// INPUT CONTAINER
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.inputLabel {
+  margin-bottom: 0.5rem;
+  color: var.$colorBlack;
+  line-height: 1.25rem;
+  letter-spacing: 0.012em;
+}
+
+.formInput {
+  width: 25rem;
+  border: 1.5px solid var.$colorInfo;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-radius: 0.25rem;
+  line-height: 1.5rem;
+
+  &.error {
+    border: 1.5px solid var.$colorError;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: var.$colorSilver;
+  }
+}
+
+// ERROR CONTAINER
+.errorContainer {
+  display: flex;
+  margin-top: 0.5rem;
+}
+
+.errorMessage {
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  color: var.$colorError;
+  padding-left: 0.5rem;
+}
+
+// FORGOT PASSWORD LINK CONTAINER
+.forgotPassContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+// FORM SUBMIT BUTTON
+.submitButton {
+  padding: 0.5rem 2.5rem;
+  color: var.$colorWhite;
+  background-color: var.$colorBlue;
+  align-self: flex-end;
+  border-radius: 0.25rem;
+  border: none;
+  line-height: 1.5rem;
+  margin-top: 3.5rem;
+}
+
+// DIVIDER
+.divider {
+  border: 0.75px solid var.$colorLightGrey;
+  margin: 40px -80px 40px -80px;
+}
+
+// CREATE ACCOUNT LINK CONTAINER
+.createAccContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.linkLabel {
+  color: var.$colorDarkGrey;
+  line-height: 1.25rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.link {
+  color: var.$colorBlue;
+  font-weight: 400;
+  line-height: 1.5rem;
+}

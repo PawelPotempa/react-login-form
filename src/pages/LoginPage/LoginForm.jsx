@@ -1,34 +1,79 @@
-import css from './LoginForm.module.scss';
+import css from "./LoginForm.module.scss";
 import Panel from "../../components/Panel";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import warningIcon from "../../assets/warningIcon.svg";
 
-function LoginForm({onLoginAttempt}) {
-
-  // TODO: Your code.
-  //       When user clicks "log in" in the form below, You should call function onLoginAttempt(username,password)
-  //       which is provided here as a prop.
-
+function LoginForm({ onLoginAttempt }) {
   return (
     <Panel className={css.LoginForm}>
-
-      // TODO: Modify this as needed
-
-      <form>
-        <fieldset>
-          <legend>Log in</legend>
-          <label htmlFor="email">Email</label>
-          <input type="text" id="email" />
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" />
-          <input type="submit" id="submit" value="Log in" />
+      <form noValidate>
+        <fieldset className={css.formContainer}>
+          <legend className={css.formTitle}>Log in</legend>
+          {/* Username input */}
+          <div className={css.inputContainer}>
+            <label className={css.inputLabel} htmlFor="email">
+              Email
+            </label>
+            <input
+              required
+              name="username"
+              className={`${css.formInput} ${css.error}`}
+              type="text"
+              id="email"
+              placeholder="Enter email..."
+            />
+            <div className={css.errorContainer}>
+              <img src={warningIcon} alt="" />
+              <span className={css.errorMessage}>Some error</span>
+            </div>
+          </div>
+          {/* Password input */}
+          <div className={css.inputContainer}>
+            <div className={css.forgotPassContainer}>
+              <label htmlFor="password">Password</label>
+              <Link to="/forgot-password" className={css.link} tabIndex="-1">
+                Forgot your password?
+              </Link>
+            </div>
+            <input
+              required
+              name="password"
+              className={`${css.formInput} ${css.error}`}
+              type="password"
+              id="password"
+              placeholder="Enter password..."
+            />
+            <div className={css.errorContainer}>
+              <img src={warningIcon} alt="" />
+              <span className={css.errorMessage}>Some error</span>
+            </div>
+          </div>
+          {/* Submit button */}
+          <input
+            className={css.submitButton}
+            type="submit"
+            id="submit"
+            value="Log in"
+          />
         </fieldset>
       </form>
+
+      <hr className={css.divider} />
+
+      {/* Create account */}
+      <div className={css.createAccContainer}>
+        <p className={css.linkLabel}>Don&apos;t have an account yet?</p>
+        <Link to="/signup" className={css.link}>
+          Create an account
+        </Link>
+      </div>
     </Panel>
-  )
+  );
 }
 
 LoginForm.propTypes = {
-  onLoginAttempt: PropTypes.func.isRequired
-}
+  onLoginAttempt: PropTypes.func.isRequired,
+};
 
 export default LoginForm;
