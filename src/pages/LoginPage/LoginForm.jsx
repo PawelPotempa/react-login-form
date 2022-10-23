@@ -4,8 +4,23 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import warningIcon from "../../assets/warningIcon.svg";
 
-function LoginForm({ warning, handleChange, handleSubmit }) {
+function LoginForm({
+  warning,
+  handleChange,
+  handleSubmit,
+  emailRef,
+  passwordRef,
+}) {
   const { username, password } = warning;
+
+  const errorContainer = (element) => {
+    return (
+      <div className={css.errorContainer}>
+        <img src={warningIcon} alt="" />
+        <span className={css.errorMessage}>{element}</span>
+      </div>
+    );
+  };
 
   return (
     <Panel className={css.LoginForm}>
@@ -19,6 +34,7 @@ function LoginForm({ warning, handleChange, handleSubmit }) {
             </label>
             <input
               required
+              ref={emailRef}
               name="username"
               className={`${css.formInput} ${username && css.error}`}
               type="text"
@@ -26,12 +42,7 @@ function LoginForm({ warning, handleChange, handleSubmit }) {
               placeholder="Enter email..."
               onChange={handleChange}
             />
-            {username && (
-              <div className={css.errorContainer}>
-                <img src={warningIcon} alt="" />
-                <span className={css.errorMessage}>{username}</span>
-              </div>
-            )}
+            {username && errorContainer(username)}
           </div>
           {/* Password input */}
           <div className={css.inputContainer}>
@@ -43,6 +54,7 @@ function LoginForm({ warning, handleChange, handleSubmit }) {
             </div>
             <input
               required
+              ref={passwordRef}
               name="password"
               className={`${css.formInput} ${password && css.error}`}
               type="password"
@@ -50,12 +62,7 @@ function LoginForm({ warning, handleChange, handleSubmit }) {
               placeholder="Enter password..."
               onChange={handleChange}
             />
-            {password && (
-              <div className={css.errorContainer}>
-                <img src={warningIcon} alt="" />
-                <span className={css.errorMessage}>{password}</span>
-              </div>
-            )}
+            {password && errorContainer(password)}
           </div>
           {/* Submit button */}
           <input

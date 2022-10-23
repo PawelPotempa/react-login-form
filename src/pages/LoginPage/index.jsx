@@ -4,9 +4,11 @@ import LoginForm from "./LoginForm";
 import useAxios from "../../api/useAxios";
 import useDatastore from "../../datastore/useDatastore";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function LoginPage() {
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
   const axios = useAxios();
   const { setAccessToken, setUser, addMessage, removeMessage } = useDatastore();
   const navigate = useNavigate();
@@ -50,7 +52,7 @@ function LoginPage() {
         } else {
           setError("Something went wrong, try again later");
         }
-        // Make sure we don't expose the serverl url to the client
+        // Make sure we don't expose the server url to the client
         console.clear();
       });
   }
@@ -60,6 +62,11 @@ function LoginPage() {
     e.preventDefault();
 
     const { username, password } = values;
+
+    if (document.activeElement === emailRef.current) {
+      passwordRef.current.focus();
+      return;
+    }
 
     // Check if BOTH username and password are invalid, if yes then display warning
     if (username.length === 0 && password.length === 0) {
@@ -104,6 +111,8 @@ function LoginPage() {
           handleSubmit={handleSubmit}
           handleChange={handleChange}
           warning={warning}
+          emailRef={emailRef}
+          passwordRef={passwordRef}
         />
       </div>
     </DefaultLayout>
